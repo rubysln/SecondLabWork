@@ -1,14 +1,14 @@
 public class User {
     Command printInstance;
     Command makeParentInstace;
-    Command makeChildDirectory;
-    Command makeChildInstance;
+    CommandString makeChildDirectory;
+    CommandString makeChildInstance;
     Command deleteAll;
-    Command printFile;
+    CommandString printFile;
     Command printAll;
-    Command doItExist;
+    CommandString doItExist;
 
-    public User(Command printInstance, Command makeParentInstace, Command makeChildDirectory, Command makeChildInstance, Command deleteAll, Command printFile, Command printAll, Command doItExist) {
+    public User(Command printInstance, Command makeParentInstace, CommandString makeChildDirectory, CommandString makeChildInstance, Command deleteAll, CommandString printFile, Command printAll, CommandString doItExist) {
         this.printInstance = printInstance;
         this.makeParentInstace = makeParentInstace;
         this.makeChildDirectory = makeChildDirectory;
@@ -24,19 +24,22 @@ public class User {
     public void makeParentInstace(){
         makeParentInstace.execute();
     }
-    public void makeChildDirectory(){
-        makeChildDirectory.execute();
+    public void makeChildDirectory(String childDirectory){
+        makeChildDirectory.execute(childDirectory);
+    }
+    public void makeChildInstance(String childDirectoryName){
+        makeChildInstance.execute(childDirectoryName);
     }
     public void deleteAll(){
         deleteAll.execute();
     }
-    public void printFile(){
-        printFile.execute();
+    public void printFile(String format){
+        printFile.execute(format);
     }
     public void printAll(){
         printAll.execute();
     }
-    public void doItExist(){
-        doItExist.execute();
+    public void doItExist(String name){
+        doItExist.execute(name);
     }
 }

@@ -1,9 +1,13 @@
-public interface Command {
+interface CommandString{
+    public void execute(String string);
+}
+interface Command{
     public void execute();
 }
 class PrintInstanceCommand implements Command{
     private WorkingDirectory wd;
     public PrintInstanceCommand(WorkingDirectory wd){
+        this.wd = wd;
     }
     @Override
     public void execute(){
@@ -20,28 +24,24 @@ class MakeParentInstanceCommand implements Command{
         wd.makeParentInstance();
     }
 }
-class MakeChildDirectoryCommand implements Command{
+class MakeChildDirectoryCommand implements CommandString{
     private WorkingDirectory wd;
-    private String childDirectory;
-    public MakeChildDirectoryCommand(String childDirectory, WorkingDirectory wd){
-        this.childDirectory = childDirectory;
+    public MakeChildDirectoryCommand(WorkingDirectory wd){
         this.wd = wd;
     }
     @Override
-    public void execute(){
-        wd.makeChildInstance(childDirectory);
+    public void execute(String childDirectory){
+        wd.makeChildDirectory(childDirectory);
     }
 }
-class MakeChildInstanceCommand implements Command{
+class MakeChildInstanceCommand implements CommandString{
     private WorkingDirectory wd;
-    private String childDirectory;
-    public MakeChildInstanceCommand(String childDirectory, WorkingDirectory wd){
-        this.childDirectory = childDirectory;
+    public MakeChildInstanceCommand(WorkingDirectory wd){
         this.wd = wd;
     }
     @Override
-    public void execute(){
-        wd.makeChildInstance(childDirectory);
+    public void execute(String childDirectoryInstance){
+        wd.makeChildInstance(childDirectoryInstance);
     }
 }
 class DeleteAllCommand implements Command{
@@ -54,15 +54,13 @@ class DeleteAllCommand implements Command{
         wd.deleteAll();
     }
 }
-class PrintFileCommand implements Command{
+class PrintFileCommand implements CommandString{
     private WorkingDirectory wd;
-    private String format;
-    public PrintFileCommand(String format, WorkingDirectory wd){
-        this.format = format;
+    public PrintFileCommand(WorkingDirectory wd){
         this.wd = wd;
     }
     @Override
-    public void execute(){
+    public void execute(String format){
         wd.printFile(format);
     }
 }
@@ -76,15 +74,13 @@ class PrintAllCommand implements Command{
         wd.printAll();
     }
 }
-class DoItExistCommand implements Command{
+class DoItExistCommand implements CommandString{
     private WorkingDirectory wd;
-    private String name;
-    public DoItExistCommand(String name, WorkingDirectory wd){
+    public DoItExistCommand(WorkingDirectory wd){
         this.wd = wd;
-        this.name = name;
     }
     @Override
-    public void execute(){
+    public void execute(String name){
         wd.doItExist(name);
     }
 }
