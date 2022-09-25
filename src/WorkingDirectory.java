@@ -7,65 +7,60 @@ public class WorkingDirectory {
     public static final String ANSI_RED = "\u001B[31m";
     private static WorkingDirectory instance;
     private String directoryName;
-    private File file;
+    private File file = new File(directoryName);
     private WorkingDirectory(String directoryName) {
         this.directoryName = directoryName;
     }
-
+    // Создание директории
     public static WorkingDirectory getInstance(String directoryName) {
         if (instance == null) {
             instance = new WorkingDirectory(directoryName);
         }
         return instance;
     }
+    // Вывод содержимого
     public void printInstance(){
-        file = new File(directoryName);
         String[] fileList = file.list();
         for(var e: fileList){
             if(e == fileList[fileList.length - 1]) System.out.printf(ANSI_BLUE + e + ANSI_RESET);
             else System.out.printf(ANSI_BLUE + e + ANSI_RESET + " | ");
         }
     }
+    // Метод возвращающий путь родительского каталога
     private String parentName(){
-        file = new File(directoryName);
         return file.getParent();
     }
-
+    // Метод перехода к родительскому каталогу
     public WorkingDirectory makeParentInstance(){
-        if(instance != null){
-            instance = new WorkingDirectory(parentName());
-            directoryName = parentName();
-        }
+        instance = new WorkingDirectory(parentName());
+        directoryName = parentName();
         return instance;
     }
-
+    // Метод проверки наличия дочернего каталога
     private boolean isChildDirectory(String childDirectory){
-        file = new File(directoryName);
         String[] fileList = file.list();
         for(var e: fileList){
             if(e.equals(childDirectory)) return true;
         }
         return false;
     }
+    // Метод создания дочернего каталога
     public boolean makeChildDirectory(String childDirectory){
-        String oldDirectoryName = directoryName;
-        directoryName = directoryName + '\\' + childDirectory;
-        file = new File(directoryName);
-        directoryName = oldDirectoryName;
+        String childDirectoryName = directoryName + File.separator + childDirectory;
+        file = new File(childDirectoryName);
         return file.mkdir();
     }
+    // Метод перехода к дочернему каталогу
     public WorkingDirectory makeChildInstance(String childDirectory){
         file = new File(childDirectory);
-        if(instance != null){
             if(isChildDirectory(childDirectory)){
                 directoryName = directoryName + File.separator + childDirectory;
                 instance = new WorkingDirectory(directoryName);
             }
-        }
         return instance;
     }
+    // Метод удаления всех подкаталогов вложенных в данный
     public boolean deleteAll(){
-        file = new File(directoryName);
         String[] fileList = file.list();
         String oldDirectory = directoryName;
         for(var e:fileList){
@@ -75,19 +70,20 @@ public class WorkingDirectory {
         }
         return true;
     }
+    // Метод вывода списка файлов определенного формата
     public void printFile(String format){
-        file = new File(directoryName);
         File[] listFiles = file.listFiles(new MyNameFilter(format));
         for(var e:listFiles){
             System.out.printf(ANSI_BLUE + e.getName() + ANSI_RESET + " | ");
         }
     }
+    // Метод вывода иерархического списка всех каталогов, вложенных в данный
     public void printAll(){
-        file = new File(directoryName);
         File[] listFiles = file.listFiles();
         StringBuilder builder = new StringBuilder();
         printAllMethod(listFiles, builder);
     }
+    // Рекурсивный метод, реализующий метод иерархического списка
     private void printAllMethod(File[] list, StringBuilder builder){
         for(var e:list){
             System.out.println(builder.toString() + ANSI_BLUE + e.getName() + ANSI_RESET);
@@ -99,9 +95,9 @@ public class WorkingDirectory {
         }
         builder.delete(0,1);
     }
+    // Метод проверки существования подкаталога
     public void doItExist(String name){
         name = name.toLowerCase();
-        file = new File(directoryName);
         File[] fileList = file.listFiles();
         System.out.println(doItExistMethod(fileList, name));
     }
