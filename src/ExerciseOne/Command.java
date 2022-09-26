@@ -1,3 +1,5 @@
+package ExerciseOne;
+
 interface CommandString{
     public void execute(String string);
 }

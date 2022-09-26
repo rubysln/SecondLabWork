@@ -1,6 +1,8 @@
+package ExerciseOne;
+
 public class Main {
     public static void main(String[] args) {
-        WorkingDirectory wd = WorkingDirectory.getInstance("C:\\Users\\ruby\\Desktop\\Java\\SecondLabWork\\WorkingDirectory");
+        WorkingDirectory wd = WorkingDirectory.getInstance("C:\\Users\\ruby\\Desktop\\Java\\SecondLabWork\\ExerciseOne.WorkingDirectory");
         User user = new User(
                 new PrintInstanceCommand(wd),
                 new MakeParentInstanceCommand(wd),
