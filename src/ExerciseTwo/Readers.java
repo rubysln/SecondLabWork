@@ -5,5 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public interface Readers {
-    public void get(File file) throws FileNotFoundException;
+    public HashMap<String, Integer> get(String name) throws FileNotFoundException;
+    public HashMap<String, HashMap<String, Integer>> getFacults() throws FileNotFoundException;
 }

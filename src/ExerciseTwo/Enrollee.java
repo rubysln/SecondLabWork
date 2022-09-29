@@ -1,16 +1,29 @@
 package ExerciseTwo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
 public class Enrollee implements Observer {
-    String name;
+    private String name;
+    private HashMap<String, Integer> points;
 
-    public Enrollee(String name) {
+    public Enrollee(String name, File file) throws FileNotFoundException {
         this.name = name;
+        Readers reader = new Reader(file);
+        points = reader.get(name);
     }
     @Override
-    public void getMessage(HashMap<String, Integer> points){
+    public void getMessage(){
 
+    }
+    @Override
+    public HashMap<String, Integer> getPoints(){
+        return points;
+    }
+    @Override
+    public String getName(){
+        return name;
     }
 }
