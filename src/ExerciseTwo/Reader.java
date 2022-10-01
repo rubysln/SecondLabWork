@@ -2,10 +2,7 @@ package ExerciseTwo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Reader implements Readers {
     private List<String> list;
@@ -19,8 +16,8 @@ public class Reader implements Readers {
             list.add(scanner.nextLine());
         }
     }
-    private HashMap<String, Integer> getPoints(String[] line){
-        HashMap<String, Integer> points = new HashMap<>();
+    private LinkedHashMap<String, Integer> getPoints(String[] line){
+        LinkedHashMap<String, Integer> points = new LinkedHashMap<>();
         for(int i = 1; i < line.length; i++){
             String[] lineArray = line[i].trim().split(":");
             points.put(lineArray[0], Integer.parseInt(lineArray[1].trim()));
@@ -28,7 +25,7 @@ public class Reader implements Readers {
         return points;
     }
     @Override
-    public HashMap<String, Integer> get(String name) throws FileNotFoundException{
+    public LinkedHashMap<String, Integer> get(String name) throws FileNotFoundException{
         for(var e:list) {
             String[] enrolleeArray = e.split(",");
             for(var j:enrolleeArray) {
@@ -40,7 +37,7 @@ public class Reader implements Readers {
 
     @Override
     public HashMap<String, HashMap<String, Integer>> getFacults() throws FileNotFoundException {
-        HashMap<String, HashMap<String, Integer>> facults = new HashMap<>();
+        HashMap<String, HashMap<String, Integer>> facults = new LinkedHashMap<>();
         for(var e: list){
             if(e != null){
                 String[] listLine = e.split(",");

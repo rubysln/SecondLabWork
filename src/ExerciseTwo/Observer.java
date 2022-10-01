@@ -6,5 +6,5 @@ import java.util.List;
 public interface Observer {
     public HashMap<String, Integer> getPoints();
     public String getName();
-    public void getMessage();
+    public void getMessage(Vyatsu vyatsu);
 }
